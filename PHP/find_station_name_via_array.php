@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Find trains for your destination</title>
   </head>
   <body>
     <form class="" action="inarray.php" method="post">
