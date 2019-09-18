@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 18, 2019 at 12:43 PM
+-- Generation Time: Sep 18, 2019 at 02:26 PM
 -- Server version: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.19-0ubuntu0.18.04.2
 
@@ -65,7 +65,17 @@ INSERT INTO `stations` (`id`, `station_name`, `h`, `c`, `w`, `th`, `rank`) VALUE
 (22, 'Kharghar', 1, 0, 0, 0, '22'),
 (23, 'Mansarovar', 1, 0, 0, 0, '23'),
 (24, 'Khandeshwar', 1, 0, 0, 0, '24'),
-(25, 'Panvel', 1, 0, 0, 0, '25');
+(25, 'Panvel', 1, 0, 0, 0, '25'),
+(26, 'Kings Circle', 1, 0, 0, 0, '80'),
+(27, 'Mahim', 1, 0, 0, 0, '81'),
+(28, 'Bandra', 1, 0, 0, 0, '82'),
+(29, 'Khar Road', 1, 0, 0, 0, '83'),
+(30, 'Santacruz', 1, 0, 0, 0, '84'),
+(31, 'Ville Parle', 1, 0, 0, 0, '85'),
+(32, 'Andheri', 1, 0, 0, 0, '86'),
+(33, 'Jogeshwari', 1, 0, 0, 0, '87'),
+(34, 'Ram Mandir', 1, 0, 0, 0, '88'),
+(35, 'Goregaon', 1, 0, 0, 0, '89');
 
 --
 -- Indexes for dumped tables
@@ -85,7 +95,7 @@ ALTER TABLE `stations`
 -- AUTO_INCREMENT for table `stations`
 --
 ALTER TABLE `stations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
