@@ -16,7 +16,7 @@ $list2 = mysqli_fetch_assoc($result2);
 
 $c=$list['stationname'];
 $d=$list2['stationname2'];
-// echo $c;
+// echo $c; wong logic this for change
 $query4 = "SELECT * FROM makhurdkurla";
 // $query3 = "SELECT * FROM makhurdkurla";
 
