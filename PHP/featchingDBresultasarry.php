@@ -3,14 +3,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Search Best root Possible</title>
   </head>
   <body>
-    <form class="" action="DBArray.php" method="post">
+    <!-- <h2 style="font-family: 'Pacifico', cursive" align="center">TheTrains.in/indicator</h2> -->
+    <div class="col-sm-10 col-sm offset-1">
 
-    <!-- Time period selection -->
-        <div class="col-lg-5 col-md-6 col-sm-6 prod-filter" align="right">
-          <select name="Drop" class="selectpicker" id="selectyear" data-width="100px">
+    <form class="form-inline" class="" action="featchingDBresultasarry.php" method="post">
+
+    <!-- First DropDown -->
+          <select class="form-control mt-2" name="Drop" class="selectpicker" id="selectStart" data-width="100px">
             <?php
               $sqlquery = "SELECT * FROM stations";
               $sqltran = mysqli_query($conn, $sqlquery)or die(mysqli_error($conn));
@@ -18,9 +29,9 @@
                 echo "<option value='".$rowList["station_name"]."'>" .$rowList["station_name"]. "</option>";
               }
             ?>
-          </select>
-
-          <select name="Drop2" class="selectpicker" id="selectyear" data-width="100px">
+          </select><br><br>
+<!-- Another DropDown here -->
+          <select class="form-control" name="Drop2" class="selectpicker" id="selectDestination" data-width="100px">
             <?php
               $sqlquery = "SELECT * FROM stations";
               $sqltran = mysqli_query($conn, $sqlquery)or die(mysqli_error($conn));
@@ -28,12 +39,20 @@
                 echo "<option value='".$rowList["station_name"]."'>" .$rowList["station_name"]. "</option>";
               }
             ?>
-          </select>
-          <button type="sumbit" name="button">Submit</button>
+          </select><br><br>
+<!-- Submit button here -->
+          <button class="btn btn-info" type="sumbit" name="button">Submit</button>
         </form>
 		</div>
     <?php
-
+    $startPoint =  $_POST["Drop"];
+    $endPoint =  $_POST["Drop2"];
+    echo "You are at: "."<strong> " . $startPoint . "</strong>"."<br>";
+    echo "Destination: "."<strong>".$endPoint."</strong>";
      ?>
+
+
+
+
   </body>
 </html>
