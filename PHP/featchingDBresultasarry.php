@@ -73,18 +73,13 @@ $y=$x[0];
 $final= mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $b AND $y");
 $rada= mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
 
-if ($res==' ') {
+
 while ($res=mysqli_fetch_array($final)) {
   echo "$res[station_name]" .'<br>';
 }
-}
 
-else {
 while ($resu=mysqli_fetch_array($rada)) {
-
   echo "$resu[station_name]" .'<br>';
-
-}
 }
 
  ?>
