@@ -4,27 +4,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+<!-- Jquery Links for Search Box -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- For Search Box -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
     <title>Search Best root Possible</title>
   </head>
   <body>
     <div class="row">
-
-
     <h2 style="font-family: 'Pacifico', cursive" align="center">TheTrains.in/indicator</h2>
     <div class="col-sm-10 col-sm offset-1">
 
     <form class="form-inline" class="" action="featchingDBresultasarry.php" method="post">
 
     <!-- First DropDown -->
-          <select class="form-control mt-2" name="Drop" class="selectpicker" id="selectStart" data-width="100px">
+          <select class="form-control mt-2 chosen" name="Drop" class="selectpicker" id="selectStart" data-width="100px">
             <?php
               $sqlquery = "SELECT * FROM stations";
               $sqltran = mysqli_query($con, $sqlquery)or die(mysqli_error($con));
@@ -34,7 +35,7 @@
             ?>
           </select><br><br>
 <!-- Another DropDown here -->
-          <select class="form-control" name="Drop2" class="selectpicker" id="selectDestination" data-width="100px">
+          <select class="form-control chosen" name="Drop2" class="selectpicker" id="selectDestination" data-width="100px">
             <?php
               $sqlquery = "SELECT * FROM stations";
               $sqltran = mysqli_query($con, $sqlquery)or die(mysqli_error($con));
@@ -58,21 +59,20 @@
 
 </div>
 <br>
-     <div class="container-fluid bg-info" >
+<div class="container-fluid bg-info" align="center">
 
 <?php
 
-$value1=mysqli_query($con,"SELECT rank FROM stations WHERE station_name='$startPoint'");
+$value1 = mysqli_query($con,"SELECT rank FROM stations WHERE station_name='$startPoint'");
 $a = mysqli_fetch_array($value1);
-$b=$a[0];
+$b = $a[0];
 
-$value2=mysqli_query($con,"SELECT rank FROM stations WHERE station_name='$endPoint'");
+$value2 = mysqli_query($con,"SELECT rank FROM stations WHERE station_name='$endPoint'");
 $x = mysqli_fetch_array($value2);
 $y=$x[0];
 
-$final= mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $b AND $y");
-$rada= mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
-
+$final = mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $b AND $y");
+$rada = mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
 
 while ($res=mysqli_fetch_array($final)) {
   echo "$res[station_name]" .'<br>';
@@ -85,6 +85,8 @@ while ($resu=mysqli_fetch_array($rada)) {
  ?>
  </div>
 
-
+<script type="text/javascript">
+  $(".chosen").chosen();
+</script>
   </body>
 </html>
