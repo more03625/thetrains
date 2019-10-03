@@ -78,6 +78,7 @@
   $x = mysqli_fetch_array($value2);
   $y=$x[0]; //$y: This will print "rank" of "Destination:"
 
+
   $final = mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $b AND $y");
   $rada = mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
 
@@ -99,26 +100,51 @@
   </tr>
   ";
 
-  $getTrainsList = "SELECT * FROM trains";
-  $ResultgetTrainsList = mysqli_query($con,$getTrainsList);
-  while ($resResultgetTrainsList = mysqli_fetch_assoc($ResultgetTrainsList)) {
 
-    $start = $resResultgetTrainsList['start'];
-    $destination = $resResultgetTrainsList['destination'];
+  if ($b>$y) {
+    $getTrainsList = "SELECT * FROM trains WHERE start = 'panvel'";
+    $ResultgetTrainsList = mysqli_query($con,$getTrainsList);
+    while ($resResultgetTrainsList = mysqli_fetch_assoc($ResultgetTrainsList)) {
 
-    $start_time = $resResultgetTrainsList['start_time'];
-    $destination_time = $resResultgetTrainsList['destination_time'];
+      $start = $resResultgetTrainsList['start'];
+      $destination = $resResultgetTrainsList['destination'];
 
-    echo"
-    <tr>
-    <td>$start </td>
-    <td>$destination </td>
+      $start_time = $resResultgetTrainsList['start_time'];
+      $destination_time = $resResultgetTrainsList['destination_time'];
 
-    <td>$start_time </td>
-    <td>$destination_time </td>
-    </tr>
-    ";
+      echo"
+      <tr>
+      <td>$start </td>
+      <td>$destination </td>
+
+      <td>$start_time </td>
+      <td>$destination_time </td>
+      </tr>
+      ";
+    }
+  }else {
+    $getTrainsList = "SELECT * FROM trains WHERE start = 'csmt'";
+    $ResultgetTrainsList = mysqli_query($con,$getTrainsList);
+    while ($resResultgetTrainsList = mysqli_fetch_assoc($ResultgetTrainsList)) {
+
+      $start = $resResultgetTrainsList['start'];
+      $destination = $resResultgetTrainsList['destination'];
+
+      $start_time = $resResultgetTrainsList['start_time'];
+      $destination_time = $resResultgetTrainsList['destination_time'];
+
+      echo"
+      <tr>
+      <td>$start </td>
+      <td>$destination </td>
+
+      <td>$start_time </td>
+      <td>$destination_time </td>
+      </tr>
+      ";
+    }
   }
+
   echo"</table>";
 
 }//isSet Ends here.
@@ -127,15 +153,24 @@
 
 </div>
 
+<?php
+
+// $currentTime =  date("h:i A");
+// $query3 = "SELECT start_time FROM trains";
+// $resofquery3 = mysqli_query($con, $query3);
+// if ($currentTime<=$resofquery3) {
+//   while ($rowList3 = mysqli_fetch_array($resofquery3)) {
+//     echo $rowList3['start_time'] "<br>";
+//   }
+// }
+
+?>
 
 
 
 
 
 
-
- <script type="text/javascript">
-   $(".chosen").chosen();
- </script>
+ <script type="text/javascript">$(".chosen").chosen();</script>
   </body>
 </html>
