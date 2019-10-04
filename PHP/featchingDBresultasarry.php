@@ -18,8 +18,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
     <title>Search In between Stations</title>
 
-
-
   </head>
   <body>
     <div class="row">
@@ -79,16 +77,28 @@
   $y=$x[0]; //$y: This will print "rank" of "Destination:"
 
 
-  $final = mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $b AND $y");
-  $rada = mysqli_query($con,"SELECT station_name FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
+  $final = mysqli_query($con,"SELECT station_name,intervaltime FROM stations WHERE rank BETWEEN $b AND $y");
+  $rada = mysqli_query($con,"SELECT station_name,intervaltime FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
+
+  echo "<table class = 'table table-bordered'>
+  <tr>
+  <th>Station Name</th>
+  <th>INterval time</th>
+  </tr>
+  ";
 
   while ($res=mysqli_fetch_array($final)) {
-    echo "$res[station_name]" .'<br>';
+    echo "<tr> <td> ".$res['station_name']."</td><td> ".$res['intervaltime']." </td></tr>";
+
   }
 
   while ($resu=mysqli_fetch_array($rada)) {
-    echo "$resu[station_name]" .'<br>';
+    echo "<tr> <td> ".$res['station_name']."</td><td> ".$res['intervaltime']." </td></tr>";
+
+
   }
+
+// Below table is for available Trains
 
   echo "<table class = 'table table-bordered'>
   <tr>
@@ -147,7 +157,7 @@
 
   echo"</table>";
 
-}//isSet Ends here.
+}
    ?>
 
 
@@ -155,22 +165,23 @@
 
 <?php
 
-// $currentTime =  date("h:i A");
-// $query3 = "SELECT start_time FROM trains";
-// $resofquery3 = mysqli_query($con, $query3);
-// if ($currentTime<=$resofquery3) {
-//   while ($rowList3 = mysqli_fetch_array($resofquery3)) {
-//     echo $rowList3['start_time'] "<br>";
-//   }
-// }
+$currentTime =  date("h:i A");
+echo $currentTime .'<br>';
+$query3 = "SELECT start_time FROM trains";
+$resofquery3 = mysqli_query($con, $query3);
+if ($currentTime>$resofquery3) {
+  while ($rowList3 = mysqli_fetch_array($resofquery3)) {
+    echo $rowList3['start_time'] .'<br>';
+  }
+}
+
+else {
+  while ($rowList3 = mysqli_fetch_array($resofquery3)) {
+    echo 'this is the sec'. $rowList3['start_time'] .'<br>';
+  }
+}
 
 ?>
-
-
-
-
-
-
  <script type="text/javascript">$(".chosen").chosen();</script>
   </body>
 </html>
