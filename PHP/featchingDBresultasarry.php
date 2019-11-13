@@ -65,98 +65,112 @@
 
 <div class="container bg-info mb-2" align="center">
   <?php
-
    if(isset($_REQUEST['button'])){
-
   $value1 = mysqli_query($con,"SELECT rank FROM stations WHERE station_name='$startPoint'");
   $a = mysqli_fetch_array($value1);
-  $b = $a[0]; //$b: This will print "rank" of "You are at:"
+  $RankofYouareAt = $a[0]; //$b: This will print "rank" of "You are at:"
 
   $value2 = mysqli_query($con,"SELECT rank FROM stations WHERE station_name='$endPoint'");
   $x = mysqli_fetch_array($value2);
-  $y=$x[0]; //$y: This will print "rank" of "Destination:"
+  $RankofDestination=$x[0]; //$y: This will print "rank" of "Destination:"
+
+  $final = mysqli_query($con,"SELECT station_name,intervaltime FROM stations WHERE rank BETWEEN $RankofYouareAt AND $RankofDestination");
+  $rada = mysqli_query($con,"SELECT station_name,intervaltime FROM stations WHERE rank BETWEEN $RankofDestination AND $RankofYouareAt ORDER BY ID DESC");
 
 
-  $final = mysqli_query($con,"SELECT station_name,intervaltime FROM stations WHERE rank BETWEEN $b AND $y");
-  $rada = mysqli_query($con,"SELECT station_name,intervaltime FROM stations WHERE rank BETWEEN $y AND $b ORDER BY ID DESC");
+// lefthere
+  // if ($RankofYouareAt<$RankofDestination) {
+  //   $StartFrom = mysqli_query($con, "SELECT start FROM trains");
+  //   while ($res=mysqli_fetch_array($StartFrom)) {
+  //       $StartFrom1 = $res['start'];
+  //   }
+  // }else {
+  //
+  // }
+
+
+
+
+  // Everything Stored in varibale
+
 
   echo "<table class = 'table table-bordered'>
   <tr>
   <th>Station Name</th>
-  <th>INterval time</th>
+  <th>Interval time</th>
   </tr>
   ";
 
+  // Two While Lopps Here
   while ($res=mysqli_fetch_array($final)) {
-    echo "<tr> <td> ".$res['station_name']."</td><td> ".$res['intervaltime']." </td></tr>";
+      $finalStationName = $res['station_name'];
+      $finalintervaltime = $res['intervaltime'];
 
+    echo "<tr> <td> ".$finalStationName."</td><td> ".$finalintervaltime." </td></tr>";
   }
 
-  while ($resu=mysqli_fetch_array($rada)) {
-    echo "<tr> <td> ".$res['station_name']."</td><td> ".$res['intervaltime']." </td></tr>";
+  while ($res=mysqli_fetch_array($rada)) {
+    $finalStationName = $res['station_name'];
+    $finalintervaltime = $res['intervaltime'];
 
-
+    echo "<tr> <td> ".$finalStationName."</td><td> ".$finalintervaltime." </td></tr>";
   }
+  // Two While Ends Lopps Here
 
 // Below table is for available Trains
-
   echo "<table class = 'table table-bordered'>
   <tr>
   <th>From</th>
   <th>Destination</th>
-
   <th>Start Time</th>
   <th>Destination Time</th>
   </tr>
   ";
 
 
-  if ($b>$y) {
-    $getTrainsList = "SELECT * FROM trains WHERE start = 'panvel'";
-    $ResultgetTrainsList = mysqli_query($con,$getTrainsList);
-    while ($resResultgetTrainsList = mysqli_fetch_assoc($ResultgetTrainsList)) {
+  if ($$RankofYouareAt > $RankofDestination) {
 
+    $getTrainsList = "SELECT * FROM trains WHERE start  = 'panvel' ORDER BY start_time asc";
+    $ResultgetTrainsList = mysqli_query($con,$getTrainsList);
+
+    while ($resResultgetTrainsList = mysqli_fetch_assoc($ResultgetTrainsList)) {
       $start = $resResultgetTrainsList['start'];
       $destination = $resResultgetTrainsList['destination'];
-
       $start_time = $resResultgetTrainsList['start_time'];
       $destination_time = $resResultgetTrainsList['destination_time'];
-
       echo"
       <tr>
       <td>$start </td>
       <td>$destination </td>
-
       <td>$start_time </td>
       <td>$destination_time </td>
       </tr>
       ";
     }
-  }else {
-    $getTrainsList = "SELECT * FROM trains WHERE start = 'csmt'";
+
+    $AddintoIntervalTime = $start_time + $InterValTime;
+
+  }
+
+  else {
+    $getTrainsList = "SELECT * FROM trains WHERE start = '$StartFrom1' ORDER BY start_time asc";
     $ResultgetTrainsList = mysqli_query($con,$getTrainsList);
     while ($resResultgetTrainsList = mysqli_fetch_assoc($ResultgetTrainsList)) {
-
       $start = $resResultgetTrainsList['start'];
       $destination = $resResultgetTrainsList['destination'];
-
       $start_time = $resResultgetTrainsList['start_time'];
       $destination_time = $resResultgetTrainsList['destination_time'];
-
       echo"
       <tr>
       <td>$start </td>
       <td>$destination </td>
-
       <td>$start_time </td>
       <td>$destination_time </td>
       </tr>
       ";
     }
   }
-
   echo"</table>";
-
 }
    ?>
 
@@ -164,23 +178,24 @@
 </div>
 
 <?php
-
 $currentTime =  date("h:i A");
-echo $currentTime .'<br>';
-$query3 = "SELECT start_time FROM trains";
+$msg =  'This is the current time '.$currentTime .'<br>';
+// var_dump($msg);
+
+$query3 = "SELECT start_time FROM trains ORDER BY start_time asc";
 $resofquery3 = mysqli_query($con, $query3);
-if ($currentTime>$resofquery3) {
-  while ($rowList3 = mysqli_fetch_array($resofquery3)) {
-    echo $rowList3['start_time'] .'<br>';
-  }
-}
 
-else {
-  while ($rowList3 = mysqli_fetch_array($resofquery3)) {
-    echo 'this is the sec'. $rowList3['start_time'] .'<br>';
-  }
-}
-
+// if ($currentTime<=$resofquery3) {
+//   while ($rowList3 = mysqli_fetch_array($resofquery3)) {
+//     $AvalaibleTrains =  'Current time is Less than Db time'.'This Is The First '.$rowList3['start_time'] .'<br>';
+//     echo "$AvalaibleTrains";
+//   }
+// }
+// else {
+//   while ($rowList3 = mysqli_fetch_array($resofquery3)) {
+//     echo 'This Is The Second '. $rowList3['start_time'] .'<br>';
+//   }
+// }
 ?>
  <script type="text/javascript">$(".chosen").chosen();</script>
   </body>
